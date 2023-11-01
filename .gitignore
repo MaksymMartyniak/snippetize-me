@@ -1,3 +1,4 @@
 shared/
 .idea/
 client_secret.json
+config.yaml
