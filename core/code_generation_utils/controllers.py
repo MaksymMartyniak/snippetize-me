@@ -42,6 +42,8 @@ class OpenAIController(BaseController):
         #  response usage field, to not go out from the limits
         # todo: generate a prompt template based on the prompt engineering
         #  and its best practices. Source to cover: https://platform.openai.com/docs/guides/prompt-engineering
+        # todo: maybe the DB schema should be extended with the desired API
+        #  for example: OpenAI, Google etc. fields: allowed models – 3.5 / 4 etc.
         chat_completion = self.api_client.chat.completions.create(
             messages=[
                 {
