@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import (ProgrammingLanguage, Framework, Option)
+from .models import (ProgrammingLanguage, Framework, Option, Assistant, Thread)
 
 
 @admin.register(ProgrammingLanguage)
@@ -27,3 +27,25 @@ class OptionAdmin(admin.ModelAdmin):
     @admin.display(description='framework')
     def get_framework(self, obj):
         return obj.framework.name if obj.framework else None
+
+
+@admin.register(Assistant)
+class AssistantAdmin(admin.ModelAdmin):
+    list_display = ["name", "get_language", "get_framework", "get_option"]
+
+    @admin.display(description='language')
+    def get_language(self, obj):
+        return obj.language.name
+
+    @admin.display(description='framework')
+    def get_framework(self, obj):
+        return obj.framework.name if obj.framework else None
+
+    @admin.display(description='option')
+    def get_option(self, obj):
+        return obj.option.name if obj.option else None
+
+
+@admin.register(Thread)
+class ThreadAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "title"]
