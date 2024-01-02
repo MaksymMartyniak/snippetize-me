@@ -58,6 +58,7 @@ class OpenAIController(BaseController):
 
 
 if __name__ == '__main__':
+    # todo: create an assistant with
     from core.code_generation_utils.communicators import OpenAICommunicator
     communicator = OpenAICommunicator()
     open_ai_ctrl = OpenAIController(communicator.api_client)
