@@ -39,7 +39,8 @@ class PostPromptView(APIView):
         # Return response
         return Response({
             "message": f"Your prompt has status 'f{run.status}'. "
-                       f"It will be processed as soon as possible."
+                       f"It will be processed as soon as possible.",
+            "thread_id": thread.id
         })
 
     def invoke_thread(self, thread_id: Optional[int]) -> Thread:
