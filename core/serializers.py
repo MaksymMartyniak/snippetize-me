@@ -1,6 +1,6 @@
 from rest_framework.serializers import Serializer, ModelSerializer, CharField
 
-from .models import (ProgrammingLanguage, Framework, Option)
+from .models import (ProgrammingLanguage, Framework, Option, Thread)
 
 
 class FrameworkSerializer(ModelSerializer):
@@ -38,3 +38,9 @@ class ThreadMessageSerializer(Serializer):
             })
         parsed_msgs.reverse()
         return parsed_msgs
+
+
+class ThreadSerializer(ModelSerializer):
+    class Meta:
+        model = Thread
+        fields = ('id', 'user', 'title', 'updated_at')

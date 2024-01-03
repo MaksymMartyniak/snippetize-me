@@ -7,7 +7,10 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import ProgrammingLanguage, Thread, Assistant
 from .code_generation_utils.communicators import OpenAICommunicator
-from .serializers import ProgrammingLanguageSerializer, ThreadMessageSerializer
+from .serializers import (
+    ProgrammingLanguageSerializer, ThreadMessageSerializer,
+    ThreadSerializer,
+)
 
 communicator = OpenAICommunicator()
 client: OpenAI = communicator.api_client
@@ -101,3 +104,12 @@ class ListThreadMessagesView(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=400)
+
+
+class ThreadsListView(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ThreadSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Thread.objects.filter(user=user).order_by('-updated_at')
