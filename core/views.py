@@ -84,10 +84,20 @@ class PostPromptView(APIView):
         thread.save()
         return run
 
+
+class GetThreadStatusView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, format=None):
         # Extract query parameters
         thread_id = request.data.get('thread_id')
-        thread = Thread.objects.get(id=thread_id)
+        try:
+            thread = Thread.objects.get(id=thread_id)
+        except Thread.DoesNotExist as exc:
+            return Response({
+                "exc": exc, "user": self.request.user.id,
+                "thread_id": thread_id
+            })
         return Response({"status": thread.get_status(client)})
 
 

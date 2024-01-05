@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (
     PromptOptionsListView, PostPromptView, ListThreadMessagesView,
-    ThreadsListView,
+    ThreadsListView, GetThreadStatusView,
 )
 
 
@@ -12,4 +12,6 @@ urlpatterns = [
     path('thread-messages/', ListThreadMessagesView.as_view(),
          name='thread-messages-view'),
     path('threads-list/', ThreadsListView.as_view(), name='threads-list-view'),
+    path('thread-status/', GetThreadStatusView.as_view(),
+         name='thread-status-view'),
 ]
