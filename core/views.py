@@ -90,7 +90,8 @@ class GetThreadStatusView(APIView):
 
     def get(self, request, format=None):
         # Extract query parameters
-        thread_id = request.data.get('thread_id')
+        thread_id = request.query_params.get('thread_id')
+
         try:
             thread = Thread.objects.get(id=thread_id)
         except Thread.DoesNotExist as exc:
