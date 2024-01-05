@@ -203,3 +203,22 @@ SIMPLE_JWT = {
     'USER_ID_CLAIM': 'user_id',
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/snippetize-me/django.log',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
