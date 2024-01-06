@@ -104,7 +104,8 @@ class GetThreadStatusView(APIView):
 
 class ListThreadMessagesView(APIView):
     def get(self, request, format=None):
-        thread = Thread.objects.get(id=request.data.get('thread_id'))
+        thread_id = request.query_params.get('thread_id')
+        thread = Thread.objects.get(id=thread_id)
         thread_msgs = thread.get_msgs(client)
 
         # Serialize the data
