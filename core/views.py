@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from .models import ProgrammingLanguage, Thread, Assistant
+from .models import ProgrammingLanguage, Thread, Assistant, Feedback
 from .code_generation_utils.communicators import OpenAICommunicator
 from .serializers import (
     ProgrammingLanguageSerializer, ThreadMessageSerializer,
@@ -125,3 +125,24 @@ class ThreadsListView(ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return Thread.objects.filter(user=user).order_by('-updated_at')
+
+
+class CreateFeedback(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+        # Extract input parameters from request.data
+        thread_id = request.data.get('thread_id')
+        value = request.data.get('value')
+        comment = request.data.get('comment')
+        feedback = Feedback(
+            thread_id=thread_id,
+            value=value,
+            comment=comment,
+        )
+        feedback.save()
+        # Return response
+        return Response({
+            "message": f"Feedback successfully created.",
+            "feedback_id": feedback.id
+        })

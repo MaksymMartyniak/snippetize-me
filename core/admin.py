@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import (ProgrammingLanguage, Framework, Option, Assistant, Thread)
+from .models import (
+    ProgrammingLanguage, Framework, Option, Assistant, Thread, Feedback
+)
 
 
 @admin.register(ProgrammingLanguage)
@@ -49,3 +51,8 @@ class AssistantAdmin(admin.ModelAdmin):
 @admin.register(Thread)
 class ThreadAdmin(admin.ModelAdmin):
     list_display = ["id", "user", "title"]
+
+
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ['id', 'thread', 'value']

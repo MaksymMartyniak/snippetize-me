@@ -131,3 +131,10 @@ class Assistant(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Feedback(models.Model):
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
+    # should be the value from 0 to 5
+    value = models.IntegerField()
+    comment = models.TextField()
